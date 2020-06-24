@@ -76,7 +76,8 @@ public class MediaDao {
                 rs.getString(5), // status
                 DATE_FORMAT.parse(rs.getString(6)), // release_date
                 rs.getString(7), // summary
-                rs.getString(8) // trailer_url
+                rs.getString(8), // trailer_url
+                rs.getString(9) // poster_url
         );
     }
 }

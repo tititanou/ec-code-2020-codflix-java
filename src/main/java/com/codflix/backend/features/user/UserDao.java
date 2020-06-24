@@ -3,10 +3,7 @@ package com.codflix.backend.features.user;
 import com.codflix.backend.core.Database;
 import com.codflix.backend.models.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDao {
     public User getUserByCredentials(String email, String password) {
@@ -56,5 +53,26 @@ public class UserDao {
         }
 
         return user;
+    }
+
+    public boolean insertNewUser(String email, String password) {
+        String s = "INSERT INTO user (email, password) VALUES ('"+ email +"','"+ password+"');";
+        System.out.println(s);
+        Connection connection = Database.get().getConnection();
+        try {
+
+            PreparedStatement st = connection.prepareStatement(s);
+            st.execute();
+            System.out.println("coucou");
+            return true;
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+
+
     }
 }

@@ -11,8 +11,9 @@ public class Media {
     private Date releaseDate;
     private String summary;
     private String trailerUrl;
+    private String posterUrl;
 
-    public Media(int id, int genreId, String title, String type, String status, Date releaseDate, String summary, String trailerUrl) {
+    public Media(int id, int genreId, String title, String type, String status, Date releaseDate, String summary, String trailerUrl, String posterUrl) {
         this.id = id;
         this.genreId = genreId;
         this.title = title;
@@ -21,6 +22,7 @@ public class Media {
         this.releaseDate = releaseDate;
         this.summary = summary;
         this.trailerUrl = trailerUrl;
+        this.posterUrl = posterUrl;
     }
 
     @Override
@@ -33,6 +35,7 @@ public class Media {
                 ", status='" + status + '\'' +
                 ", releaseDate=" + releaseDate +
                 ", summary='" + summary + '\'' +
+                ", trailerUrl='" + trailerUrl + '\'' +
                 ", trailerUrl='" + trailerUrl + '\'' +
                 '}';
     }
@@ -99,6 +102,13 @@ public class Media {
 
     public void setTrailerUrl(String trailerUrl) {
         this.trailerUrl = trailerUrl;
+    }
+    public String getPosterUrl() {
+        return posterUrl;
+    }
+
+    public void setPosterUrl(String posterUrl) {
+        this.posterUrl = posterUrl;
     }
 }
 
