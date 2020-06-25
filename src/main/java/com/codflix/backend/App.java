@@ -6,7 +6,10 @@ import com.codflix.backend.core.Template;
 import com.codflix.backend.features.genre.GenreController;
 import com.codflix.backend.features.history.HistoryController;
 import com.codflix.backend.features.media.MediaController;
+import com.codflix.backend.features.other.ContactController;
 import com.codflix.backend.features.other.HomeController;
+import com.codflix.backend.features.profil.ProfilController;
+import com.codflix.backend.features.validation.ValidationController;
 import com.codflix.backend.features.user.AuthController;
 import com.codflix.backend.middlewares.AuthMiddleware;
 import com.codflix.backend.middlewares.LoggerMiddleware;
@@ -28,10 +31,13 @@ public class App {
         // Controllers
         // Additional controllers should be declared and used here
         HomeController home = new HomeController();
+        ContactController contact = new ContactController();
         AuthController auth = new AuthController();
         GenreController genre = new GenreController();
         MediaController media = new MediaController();
         HistoryController history = new HistoryController();
+        ValidationController validation = new ValidationController();
+        ProfilController profil = new ProfilController();
 
         // Routes
         // Every request should be mapped here to a controller method
@@ -45,9 +51,23 @@ public class App {
         Spark.get("/genres/", (req, res) -> genre.list(req, res));
         Spark.get("/medias/:id", (req, res) -> media.detail(req, res));
         Spark.get("/medias/", (req, res) -> media.list(req, res));
+
         Spark.get("/histories/", (req, res) -> history.list(req, res));
 
         Spark.get("/", (req, res) -> home.home(req, res));
+
+        Spark.get("/contact", (req, res) -> contact.contact(req, res));
+        Spark.post("contact", (req, res) -> contact.sendMail(req, res));
+
+        Spark.get("/profil", (req, res) -> profil.profil(req, res));
+        Spark.post("profil", (req, res) -> profil.profil(req, res));
+        Spark.post("/updateMail", (req, res) -> profil.modifyEmail(req, res));
+        Spark.post("/updatePassword", (req, res) -> profil.modifyPassword(req, res));
+        Spark.get("/deleteAccount", (req, res) -> auth.logout(req, res));
+
+        Spark.get("/ValidationController", (req, res) -> validation.validation(req, res));
+        //Spark.get("ValidationController", (req, res) -> validation.(req, res));
+
     }
 
     private static void initializeServer() {

@@ -16,12 +16,21 @@ public class MediaController {
     public String list(Request request, Response response) {
         List<Media> medias;
 
-        String title = request.queryParams("titl");
+        String title = request.queryParams("title");
+        System.out.println("title = " + title);
+        String type = request.queryParams("type");
+        System.out.println("type = " + type);
+        String genre = request.queryParams("genre");
+        System.out.println("genre = " + genre);
+        String year = request.queryParams("releaseDate");
+        System.out.println("date = " + year);
 
-        if (title != null && !title.isEmpty()) {
-            medias = mediaDao.filterMedias(title);
-        } else {
+        if(genre == null && type == null && year == null && title == null){
+            System.out.println("tt est null");
             medias = mediaDao.getAllMedias();
+        } else {
+            System.out.println("on passe à la suite");
+            medias = mediaDao.filterMedias(title, type, genre, year);
         }
 
         Map<String, Object> model = new HashMap<>();

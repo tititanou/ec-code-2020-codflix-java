@@ -18,7 +18,7 @@ public class MediaDao {
         Connection connection = Database.get().getConnection();
         try {
             Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM media ORDER BY release_date DESC");
+            ResultSet rs = st.executeQuery("SELECT * FROM media ORDER BY type ASC , release_date DESC");
             while (rs.next()) {
                 medias.add(mapToMedia(rs));
             }
@@ -29,13 +29,33 @@ public class MediaDao {
         return medias;
     }
 
-    public List<Media> filterMedias(String title) {
+    public List<Media> filterMedias(String title, String type, String genre, String year) {
         List<Media> medias = new ArrayList<>();
 
         Connection connection = Database.get().getConnection();
+        if (genre == null){
+            genre = "";
+        }
+        if (type == null){
+            type = "";
+        }
         try {
-            PreparedStatement st = connection.prepareStatement("SELECT * FROM media WHERE title=? ORDER BY release_date DESC");
-            st.setString(1, title);
+            String query;
+
+            if (year == null ){
+                System.out.println("pas d'année");
+                query = "SELECT * FROM media WHERE title LIKE '%" + title + "%' AND type LIKE '%" + type + "%' AND genre_id LIKE '%" + genre + "%' ORDER BY release_date DESC";
+                System.out.println("query = " + query);
+            }
+            else {
+                System.out.println("alors?");
+                query = "SELECT * FROM media WHERE title LIKE '%" + title + "%' AND type LIKE '%" + type + "%' AND genre_id LIKE '%" + genre + "%' AND release_date " + year + " ORDER BY release_date DESC";
+                System.out.println(query);
+
+            }
+
+            PreparedStatement st = connection.prepareStatement(query);
+
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 medias.add(mapToMedia(rs));

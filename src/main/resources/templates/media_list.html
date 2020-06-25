@@ -1,26 +1,41 @@
 #parse("dashboard.html")
 #@mainLayout()
 
-<div class="row">
-    <div class="col-md-4 offset-md-8">
-        <form action="/medias/" method="get">
-            <div class="form-group has-btn">
-                <input type="search" id="search" name="title" class="form-control"
-                       placeholder="Rechercher un film ou une série">
-
-                <button type="submit" class="btn btn-block bg-red">Valider</button>
-            </div>
-        </form>
-    </div>
+<div class="col">
+    <form action="/medias/" method="get">
+        <div class="form-group has-btn">
+            <select name="type" class="form-control col-md-2 selectpiker" >
+                <option selected disabled>Type de média</option>
+                <option value="Serie" >Série</option>
+                <option value="Film">Film</option>
+            </select>
+            <select name="genre" class="form-control col-md-2 selectpicker" data-live-search="true">
+                <option selected disabled>Genre</option>
+                <option value="1" >Action</option>
+                <option value="2">Horreur</option>
+                <option value="3">Science-fiction</option>
+            </select>
+            <select name="releaseDate" class="form-control col-md-2 selectpicker">
+                <option selected disabled>Année de sortie</option>
+                <option value="<= '1989-12-31'" > Avant 1980</option>
+                <option value="BETWEEN '1980-01-01' AND '1989-12-31'">1980-1990</option>
+                <option value="BETWEEN '1990-01-01' AND '1999-12-31'">1990-2000</option>
+                <option value="BETWEEN '2000-01-01' AND '2009-12-31'">2000-2010</option>
+                <option value="BETWEEN '2010-01-01' AND '2019-12-31'">2010-2020</option>
+                <option value=">= '2020-01-01'">Après 2020</option>
+            </select>
+            <input  type="text" id="search" onkeyup="myFunction()"  name="title" class="select-picker form-control col-md-3"
+                   placeholder="Rechercher un film ou une série">
+        </div>
+    </form>
 </div>
 
 <div class="media-list">
     #foreach($media in $medias)
-        <a class="item" href="/medias/$media.getId()">
-            <div class="video">
+        <a class="item" id="$media.getType()" href="/medias/$media.getId()">
+            <div >
                 <div>
-                    <iframe allowfullscreen="" frameborder="0"
-                            src="$media.getPosterUrL()" ></iframe>
+                    <img src="$media.getPosterUrl()" class="col-md-12 img-responsive" alt="$media.getTitle()" ></img>
                 </div>
             </div>
             <div class="title">
@@ -30,3 +45,20 @@
     #end
 </div>
 #end
+<script>
+    function myFunction() {
+        var input, filter, div, a, i, txtValue;
+        input = document.getElementById("search");
+        filter = input.value.toLowerCase();
+        div = document.getElementsByClassName("media-list");
+        a = div.getElementsByTagName("a");
+        for (i = 0; i < a.length; i++) {
+            txtValue = a[i][0].textContent || a[i][0].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                a[i].style.display = "";
+            } else {
+                a[i].style.display = "none";
+            }
+        }
+    }
+</script>

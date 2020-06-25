@@ -31,7 +31,8 @@ public class UserDao {
         return new User(
                 rs.getInt(1), // id
                 rs.getString(2), // email
-                rs.getString(3) // password
+                rs.getString(3), // password
+                rs.getInt(4) // status
         );
     }
 

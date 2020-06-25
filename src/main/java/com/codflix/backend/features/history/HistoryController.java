@@ -20,13 +20,12 @@ public class HistoryController {
 
     public String list(Request request, Response res) {
         List<History> histories;
-
-        Session session = request.session(true);
-        String userIdStr = session.attribute("user_id");
-        if (userIdStr == null || userIdStr.isEmpty()) {
-            Spark.halt(401, "No user id provded to see history");
+        if (request.requestMethod().equals("GET")) {
+            Map<String, Object> model = new HashMap<>();
+            return Template.render("history_list.html", model);
         }
-        int userId = Integer.parseInt(userIdStr);
+        Session session = request.session(true);
+        int userId = session.attribute("user_id");
 
         User user = userDao.getUserById(userId);
         histories = historyDao.getStreamsHistoryForUser(userId);

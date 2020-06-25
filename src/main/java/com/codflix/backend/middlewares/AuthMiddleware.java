@@ -14,7 +14,9 @@ public class AuthMiddleware implements Middleware {
         // Handle routes with no auth first
         if (path.equals("/") ||
                 path.equals("/login") ||
-                path.equals("/signup")) {
+                path.equals("/signup") ||
+                path.equals("/contact") ||
+                path.equals("/ValidationController")){
 
             return;
         }
@@ -30,6 +32,7 @@ public class AuthMiddleware implements Middleware {
         if (cookie != null) {
             session = request.session(true);
             String userId = request.cookie("user_id");
+
             session.attribute("user_id", userId);
             return;
         }

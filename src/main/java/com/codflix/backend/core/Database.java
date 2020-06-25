@@ -16,7 +16,7 @@ public class Database {
     private static final Logger logger = LoggerFactory.getLogger(Database.class);
 
     private static Database instance;
-    private Connection connection;
+    private static Connection connection;
 
     public static Database get() {
         if (instance == null) {
@@ -51,7 +51,7 @@ public class Database {
      * you do not have to close the connection at the end of your query.
      * @return a valid Connection instance.
      */
-    public Connection getConnection() {
+    public static Connection getConnection() {
         if (connection != null) {
             return connection;
         }

@@ -1,0 +1,67 @@
+#parse("base.html")
+#@mainLayout()
+<div class="landscape">
+    <div class="bg-black">
+        <div class="row no-gutters">
+            <div class="col-md-6 full-height bg-white">
+                <button type="button" class="btn btn-block bg-light col-md-2 float-right" href="/">Retour au tableau de bord</button>
+                <div class="auth-container">
+                    <h2><span>Cod</span>'Flix</h2>
+                    <h3>Profil</h3>
+
+                    <div class="card" style="width: 18rem" >
+                        <img src="https://www.gifimili.com/gif/2018/02/homer-simpson-devant-la-tele.gif" class="card-img-top" alt="avatar">
+                        <div class="card-body">
+                            <p class="card-text">Adresse mail: $user.getEmail()</p>
+                        </div>
+                    </div>
+
+                   <!--<div class="row mt-3">
+                        <button type="button" onclick="displayElements(changeMail)"  name="changeMail" class="btn btn-success col align-self-start" >Modifier l'adresse mail</button>
+                        <button type="button" onclick="displayElements(changePassword)" name="changePassword" class="btn btn-warning col align-self-center">Modifier le mot de passe </button>
+                        <button type="button" class="btn btn-danger col align-self-end">Supprimer le compte</button>
+                    </div>-->
+
+                    <div id="changeMail">
+                        <form class="form-inline col-md mt-5" method="POST" action="/updateMail">
+                                <label for="email">Nouvelle adresse mail
+                                <input type="text" class="form-control" id="email" name="email" placeholder="email@example.com"></label>
+                            <button type="submit" class="btn btn-primary mt-3">Valider</button>
+                        </form>
+                    </div>
+                    <div id="changePassword" >
+                        <form class="form-inline mt-5"method="POST" action="/updatePassword">
+                                <label for="pwd" >Ancien mot de passe
+                                <input type="password" class="form-control pl" id="pwd" name="password" placeholder="*****"></label>
+
+                                <label for="confirmPwd" class="mr5">Nouveau mot de passe
+                                <input type="password" class="form-control" id="confirmPwd" name="confirmPassword" placeholder="*****"></label>
+                            <button type="submit" class="btn btn-primary mb-2">Valider</button>
+                        </form>
+                    </div>
+                    </div>
+
+                        <span class="error-msg">
+
+                        </span>
+            </div>
+            <div class="col-md-6 full-height">
+                <div class="auth-container">
+                    <h1>Contactez-nous !</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#end
+<script>
+function displayElements(name){
+    let div;
+        div = document.getElementById(name);
+        if(div.style.visibility === hidden){
+            div.style.visibility = visible;
+        }else{
+            div.style.visibility = hidden;
+        }
+}
+</script>
